@@ -1,23 +1,39 @@
-# TP-lab07
+# TP-lab08
 
-Лабораторная работа №7 по ТиМП.
+Лабораторная работа №8 по ТиМП.
 
 ## Описание
 
-Проект изучает Hunter — пакетный менеджер для CMake.
+Проект изучает Docker.
 
-Библиотека `print` собирается через CMake.
+В Dockerfile собирается CMake-проект из предыдущей лабораторной работы.
 
-Тесты используют GoogleTest, который подключается через Hunter.
+Контейнер запускает приложение `demo`.
 
-Также добавлено приложение `demo`.
+Приложение читает текст из stdin и пишет его в файл `log.txt`.
 
-## Структура проекта
+## Сборка Docker-образа
 
-- `include/` — заголовочные файлы
-- `sources/` — исходные файлы
-- `examples/` — примеры
-- `tests/` — тесты
-- `demo/` — demo-приложение
-- `cmake/HunterGate.cmake` — подключение Hunter
-- `CMakeLists.txt` — сборка проекта
+```bash
+docker build -t logger .
+```
+
+## Запуск контейнера
+
+```bash
+mkdir -p logs
+docker run -i -v "$(pwd)/logs:/home/logs" logger
+```
+
+## Проверка результата
+
+```bash
+cat logs/log.txt
+```
+
+## Структура
+
+- `Dockerfile` — инструкция сборки Docker-образа
+- `.dockerignore` — исключения для Docker build context
+- `.github/workflows/docker.yml` — проверка сборки Docker-образа
+- `demo/` — приложение для записи логов

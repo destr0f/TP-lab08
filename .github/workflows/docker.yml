@@ -1,0 +1,23 @@
+name: Docker
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build_Docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -t logger .
+
+      - name: Run image
+        run: |
+          mkdir -p logs
+          echo "hello docker" | docker run -i -v "${{ github.workspace }}/logs:/home/logs" logger
+          cat logs/log.txt

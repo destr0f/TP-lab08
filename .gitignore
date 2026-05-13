@@ -6,3 +6,5 @@ file.txt
 _builds/
 demo_log.txt
 file.txt
+logs/
+docker-inspect.txt
